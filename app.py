@@ -583,7 +583,6 @@ def main():
 
                         # Scatter plots
                         col1, col2 = st.columns(2)
-
                         with col1:
                             # Factor K vs Calmar Ratio
                             fig_scatter1 = px.scatter(
@@ -591,7 +590,7 @@ def main():
                                 x="Calmar_Ratio_Weighted",
                                 y="Factor_K_Elite_96",
                                 color="Percentile",
-                                size="# of trades",
+                                size="Net_Profit_Total",
                                 hover_data=["Strategy Name", "Rank_Category"],
                                 title="Factor K vs Calmar Ratio",
                                 color_continuous_scale="viridis",
@@ -599,19 +598,44 @@ def main():
                             fig_scatter1.update_layout(height=400)
                             st.plotly_chart(fig_scatter1, use_container_width=True)
 
+                            fig_scatter3 = px.scatter(
+                                filtered_df,
+                                x="Max_DD_Total",
+                                y="Factor_K_Elite_96",
+                                color="Percentile",
+                                size="Net_Profit_Total",
+                                hover_data=["Strategy Name", "Rank_Category"],
+                                title="Factor K vs Max DD Total",
+                                color_continuous_scale="burgyl",
+                            )
+                            fig_scatter3.update_layout(height=400)
+                            st.plotly_chart(fig_scatter3, use_container_width=True)
+
                         with col2:
                             # Factor K vs Sharpe
                             fig_scatter2 = px.scatter(
                                 filtered_df,
-                                x="Sharpe_Average",
+                                x="PF_Consistency",
                                 y="Factor_K_Elite_96",
                                 color="Market_Regime",
                                 size="Net_Profit_Total",
                                 hover_data=["Strategy Name", "Rank_Category"],
-                                title="Factor K vs Sharpe Ratio",
+                                title="Factor K vs PF Consistency",
                             )
                             fig_scatter2.update_layout(height=400)
                             st.plotly_chart(fig_scatter2, use_container_width=True)
+
+                            fig_scatter4 = px.scatter(
+                                filtered_df,
+                                x="CAGR_Average",
+                                y="Factor_K_Elite_96",
+                                color="Market_Regime",
+                                size="Net_Profit_Total",
+                                hover_data=["Strategy Name", "Rank_Category"],
+                                title="Factor K vs CAGR Average",
+                            )
+                            fig_scatter4.update_layout(height=400)
+                            st.plotly_chart(fig_scatter4, use_container_width=True)
 
                         # Matriz de correlación
                         st.markdown("### 🔗 Matriz de Correlación")
